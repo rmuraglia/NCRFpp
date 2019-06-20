@@ -25,10 +25,10 @@ except ImportError:
     import pickle
 
 
-seed_num = 42
-random.seed(seed_num)
-torch.manual_seed(seed_num)
-np.random.seed(seed_num)
+# seed_num = 42
+# random.seed(seed_num)
+# torch.manual_seed(seed_num)
+# np.random.seed(seed_num)
 
 
 def data_initialization(data):
@@ -518,7 +518,8 @@ if __name__ == '__main__':
     parser.add_argument('--seg', default="True") 
     parser.add_argument('--raw') 
     parser.add_argument('--loadmodel')
-    parser.add_argument('--output') 
+    parser.add_argument('--output')
+    parser.add_argument('--rand_seed')
 
     args = parser.parse_args()
     data = Data()
@@ -541,6 +542,12 @@ if __name__ == '__main__':
     else:
         data.read_config(args.config)
     # data.show_data_summary()
+    
+    seed_num = int(args.rand_seed)
+    random.seed(seed_num)
+    torch.manual_seed(seed_num)
+    np.random.seed(seed_num)
+
     status = data.status.lower()
     print("Seed num:",seed_num)
 
